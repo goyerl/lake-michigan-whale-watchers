@@ -30,7 +30,7 @@ def handler(event, context=None):
     else:
        total_bases = 0
 
-    data['total_bases'] = total_bases
+    data['totalBases'] = total_bases
     data['id'] = str(uuid.uuid4())
     response = table.put_item(Item=data)
 
