@@ -149,3 +149,23 @@ module "put_at_bat" {
     TABLE_NAME = "${local.project_abbv}-at-bats"
   }
 }
+
+module "delete_at_bat" {
+  source           = "./function"
+  path             = "{id}"
+  function         = "delete-at-bat"
+  handler          = "delete_at_bat.handler"
+  http_method      = "POST"
+  app              = local.project_abbv
+  iam_role         = aws_iam_role.role.arn
+  filename         = data.archive_file.src.output_path
+  source_code_hash = data.archive_file.src.output_base64sha256
+  apigw_arn        = aws_api_gateway_rest_api.api.execution_arn
+  apigw_id         = aws_api_gateway_rest_api.api.id
+
+  apigw_parent_id = aws_api_gateway_resource.delete.id
+
+  env_vars = {
+    TABLE_NAME = "${local.project_abbv}-at-bats"
+  }
+}

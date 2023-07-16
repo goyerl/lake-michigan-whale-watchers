@@ -75,7 +75,8 @@ resource "aws_api_gateway_deployment" "deployment" {
       module.get_schedule,
       module.get_game_details,
       module.get_my_stats,
-      module.put_at_bat
+      module.put_at_bat,
+      module.delete_at_bat
     ]))
   }
 
@@ -94,6 +95,12 @@ resource "aws_api_gateway_resource" "at_bats" {
   rest_api_id = aws_api_gateway_rest_api.api.id
   parent_id   = aws_api_gateway_rest_api.api.root_resource_id
   path_part   = "at-bats"
+}
+
+resource "aws_api_gateway_resource" "delete" {
+  rest_api_id = aws_api_gateway_rest_api.api.id
+  parent_id   = aws_api_gateway_resource.at_bats_game.id
+  path_part   = "delete"
 }
 
 resource "aws_api_gateway_resource" "at_bats_game" {

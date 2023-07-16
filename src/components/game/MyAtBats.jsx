@@ -1,6 +1,7 @@
 import React from "react";
 import {
   Grid,
+  IconButton,
   LinearProgress,
   Paper,
   TableBody,
@@ -11,7 +12,10 @@ import {
 } from "@mui/material";
 import { getUsername } from "../../utils/getUsername";
 import getMyAtBats from "../../api/getMyAtBats";
-import { useQuery } from "react-query";
+import { queryClient } from "../../App";
+import { useMutation, useQuery } from "react-query";
+import { DeleteForever } from "@mui/icons-material";
+import { deleteAtBat } from "../../api/deleteAtBat";
 
 export default function MyAtBats(props) {
   const { id_token, gameDate } = props;
@@ -24,6 +28,15 @@ export default function MyAtBats(props) {
   const myAtBats = useQuery({
     queryFn: getAtBats,
     queryKey: ["at-bats"],
+  });
+
+  const handleDelete = useMutation({
+    mutationFn: (atBat) => {
+      return deleteAtBat(atBat);
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries("at-bats");
+    },
   });
 
   if (myAtBats.isSuccess) {
@@ -40,6 +53,7 @@ export default function MyAtBats(props) {
                   </TableCell>
                   <TableCell>RBI</TableCell>
                   <TableCell>Scored</TableCell>
+                  <TableCell>Delete</TableCell>
                 </TableRow>
               </TableHead>
               <TableBody>
@@ -59,6 +73,18 @@ export default function MyAtBats(props) {
                     <TableCell align="right">{row.rbi}</TableCell>
                     <TableCell align="right">
                       {row.runScored ? <>Y</> : <>N</>}
+                    </TableCell>
+                    <TableCell>
+                      <IconButton
+                        onClick={() =>
+                          handleDelete.mutate({
+                            gameDate: row.gameDate,
+                            id: row.id,
+                          })
+                        }
+                      >
+                        <DeleteForever />
+                      </IconButton>
                     </TableCell>
                   </TableRow>
                 ))}
