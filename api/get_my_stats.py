@@ -91,7 +91,7 @@ def build_stats(items):
         elif result == 'BB':
             season_stats[season].walks += 1
         
-        season_stats[season].rbi += item['rbi']
+        season_stats[season].rbi += int(item['rbi'])
         season_stats[season].total_bases += item['totalBases']
 
         if item['runScored']:
