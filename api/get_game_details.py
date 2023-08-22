@@ -12,7 +12,7 @@ table = dynamodb.Table(table_name)
 def handler(event, context=None):
     date = event['pathParameters']['date']
     response = table.query(
-        KeyConditionExpression=Key('season').eq(os.environ.get('SEASON', 'Summer 2023'))
+        KeyConditionExpression=Key('season').eq(os.environ.get('SEASON', 'Fall 2023'))
         & Key('date').eq(date))
     return {
         'isBase64Encoded': False,

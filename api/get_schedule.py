@@ -10,7 +10,7 @@ table = dynamodb.Table(table_name)
 
 
 def handler(event, context=None):
-    response = table.query(KeyConditionExpression=Key('season').eq('Summer 2023'))
+    response = table.query(KeyConditionExpression=Key('season').eq('Fall 2023'))
     return {
         'isBase64Encoded': False,
         'statusCode': response['ResponseMetadata']['HTTPStatusCode'],
