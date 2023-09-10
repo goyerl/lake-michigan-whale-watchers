@@ -4,7 +4,7 @@ import boto3
 from boto3.dynamodb.conditions import Key, Attr
 
 table_name = os.environ.get('TABLE_NAME', 'lmww-schedule')
-
+season = os.environ.get('SEASON', 'Fall 2023')
 dynamodb = boto3.resource('dynamodb')
 table = dynamodb.Table(table_name)
 
@@ -12,7 +12,7 @@ table = dynamodb.Table(table_name)
 def handler(event, context=None):
     date = event['pathParameters']['date']
     response = table.query(
-        KeyConditionExpression=Key('season').eq(os.environ.get('SEASON', 'Fall 2023'))
+        KeyConditionExpression=Key('season').eq(season)
         & Key('date').eq(date))
     return {
         'isBase64Encoded': False,
