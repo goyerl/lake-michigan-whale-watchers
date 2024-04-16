@@ -87,7 +87,7 @@ module "get_schedule" {
 
   env_vars = {
     TABLE_NAME = "${local.project_abbv}-schedule"
-    SEASON     = "Fall II 2023"
+    SEASON     = local.active_season
   }
 }
 
@@ -108,7 +108,7 @@ module "get_game_details" {
 
   env_vars = {
     TABLE_NAME = "${local.project_abbv}-schedule"
-    SEASON     = "Fall II 2023"
+    SEASON     = local.active_season
   }
 }
 

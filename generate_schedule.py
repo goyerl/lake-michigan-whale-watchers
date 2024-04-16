@@ -1,13 +1,13 @@
 import json
 from datetime import datetime, timedelta
 
-start_date = "2023-09-12T19:05:00"
+start_date = "2024-04-16T19:05:00"
 
 def main():
     schedule = []
     date = datetime.fromisoformat(start_date)
     game = {
-        "season": "Fall II 2023",
+        "season": "Spring 2024",
         "date": date.strftime('%m-%d-%y'),
         "msTime": str(int(date.timestamp() * 1000)),
         "opponent": "TBD",
@@ -20,7 +20,7 @@ def main():
         week += 1
         date = date + timedelta(days=7)
         new_game = {
-            "season": "Fall II 2023",
+            "season": "Spring 2024",
             "date": date.strftime('%m-%d-%y'),
             "msTime": str(int(date.timestamp() * 1000)),
             "opponent": "TBD",
