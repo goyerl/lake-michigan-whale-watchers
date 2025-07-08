@@ -101,15 +101,22 @@ def build_stats(items):
 
     data = { 'seasons': [], 'total': {}}
     total_stats = Stats('totals')
+
     for key in season_stats:
         current_season = season_stats[key]
         stat_line = current_season.calc_stats()
         data['seasons'].append(stat_line)
+
         total_stats.at_bats += stat_line['atBats']
         total_stats.singles += stat_line['singles']
+        total_stats.hits += stat_line['singles']
         total_stats.doubles += stat_line['doubles']
+        total_stats.hits += stat_line['doubles']
         total_stats.triples += stat_line['triples']
+        total_stats.hits += stat_line['triples']
         total_stats.hr += stat_line['hr']
+        total_stats.hits += stat_line['hr']
+
         total_stats.runs += stat_line['runs']
         total_stats.rbi += stat_line['rbi']
         total_stats.walks += stat_line['walks']
